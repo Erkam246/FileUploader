@@ -4,7 +4,7 @@ require_once "config.php";
 
 class File {
     public $isImage = false;
-    public $id = "", $insertid = 0, $filename = "", $name = "", $extension = "", $correctpath = "";
+    public $id = "", $insertid = 0, $filename = "", $name = "", $extension = "", $correctpath = "", $size = 0;
 
     public function __construct(string $id){
         global $mysql;
@@ -24,6 +24,7 @@ class File {
             $this->name = $this->filename;
         else
             $this->name = $explode[0];
+        $this->size = filesize($this->correctpath);
         $info = pathinfo($this->correctpath);
         $imgtype = ["png", "jpg", "jpeg"];
         $ext = $info["extension"];

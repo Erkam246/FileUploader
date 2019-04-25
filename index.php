@@ -29,7 +29,7 @@ $file = getFileById($id);
     <div class="container">
         <div class="intro">
             <h2 class="display-4 text-monospace text-center"><?= $file->filename ?></h2>
-            <p class="text-monospace text-center border rounded shadow">File uploaded at: <?= date("d.m.Y H:i", filemtime($file->correctpath)) ?></p>
+            <p class="text-monospace text-center border rounded shadow">File Informations: <br>File uploaded at: <?= date("d.m.Y H:i", filemtime($file->correctpath)) ?><br><?= round($file->size / 1024, 3) ?> KB</p>
         </div>
         <div class="buttons">
             <a class="btn btn-light text-white bg-dark" role="button" href="<?= $file->correctpath ?>" download>Download</a>
