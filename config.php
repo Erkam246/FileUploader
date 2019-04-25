@@ -19,7 +19,7 @@ if(!$mysql->ping()){
     return;
 }
 
-$mysql->query("CREATE TABLE IF NOT EXISTS `$db`.`fileupload` ( `f_id` INT NOT NULL AUTO_INCREMENT , `f_name` VARCHAR(128) NOT NULL , PRIMARY KEY (`f_id`)) ENGINE = InnoDB;", MYSQLI_USE_RESULT);
+$mysql->query("CREATE TABLE IF NOT EXISTS `$db`.`fileupload` ( `f_id` INT NOT NULL AUTO_INCREMENT , `f_name` VARCHAR(128) NOT NULL , `f_dir` VARCHAR(20) NOT NULL , PRIMARY KEY (`f_id`)) ENGINE = InnoDB;", MYSQLI_USE_RESULT);
 
 function fileIdExist(string $id): bool{
     global $mysql;
