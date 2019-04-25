@@ -5,8 +5,8 @@ if(!isset($_GET["id"])){
     include_once "pages/404.php";
     return;
 }
-$id = (int)$_GET["id"];
-if(!is_int($id)){
+$id = $_GET["id"];
+if(strlen($id) !== 16){
     include_once "pages/404.php";
     return;
 }
@@ -15,8 +15,6 @@ if(!fileIdExist($id)){
     return;
 }
 $file = getFileById($id);
-$filename = getFileName($id);
-$fwithpath = getFileWithPath($id);
 ?>
 <html lang="deu">
 <head>
@@ -24,18 +22,28 @@ $fwithpath = getFileWithPath($id);
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/styles.min.css">
-    <title><?= $title ?> » <?= getFileName($id); ?></title>
+    <title><?= $title ?> » <?= $file->name ?></title>
 </head>
-<body>
+<body ondragstart="event.preventDefault();">
 <div class="highlight-clean">
     <div class="container">
         <div class="intro">
-            <h2 class="display-2 text-monospace text-center"><?= $file ?></h2>
-            <p class="text-monospace text-center border rounded shadow">File uploaded at: <?= date("d.m.Y H:i", filemtime($fwithpath)) ?></p>
+            <h2 class="display-4 text-monospace text-center"><?= $file->filename ?></h2>
+            <p class="text-monospace text-center border rounded shadow">File uploaded at: <?= date("d.m.Y H:i", filemtime($file->correctpath)) ?></p>
         </div>
         <div class="buttons">
-            <a class="btn btn-light text-white bg-dark" role="button" href="<?= $fwithpath ?>" download>Download</a>
+            <a class="btn btn-light text-white bg-dark" role="button" href="<?= $file->correctpath ?>" download>Download</a>
         </div>
+        <?php
+        if($file->isImage){
+            ?>
+            <div class="text-center">
+                <p>Preview:</p>
+                <img src="<?= $file->correctpath ?>" alt="" class="img-thumbnail w-25">
+            </div>
+            <?php
+        }
+        ?>
     </div>
 </div>
 <script src="assets/js/jquery.min.js"></script>

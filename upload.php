@@ -16,7 +16,7 @@ include_once "config.php";
     <form class="bg-white border rounded shadow-lg" method="post" enctype="multipart/form-data" action="">
         <div class="form-group">
             <input type="file" required name="file">
-            <span class="alert-info">Max. Upload Limit: <?= ini_get('upload_max_filesize'); ?></span>
+            <span class="alert-info">Max. Upload Limit: <?= ini_get("upload_max_filesize"); ?></span>
         </div>
         <div class="form-group">
             <button class="btn btn-primary btn-block btn-sm text-monospace" type="submit" name="uploaded">Upload
@@ -24,13 +24,14 @@ include_once "config.php";
         </div>
         <?php
         if(isset($_POST["uploaded"])){
-            $fname = $_FILES["file"]["tmp_name"];
-            if(move_uploaded_file($fname, __DIR__.DIRECTORY_SEPARATOR.$path.DIRECTORY_SEPARATOR.urlencode(basename($_FILES["file"]["name"])))){
-                $name = basename($_FILES["file"]["name"]);
-                $id = createNewLink($name);
-                $link = "index.php?id=".$id;
+            $tempname = $_FILES["file"]["tmp_name"];
+            $fname = basename($_FILES["file"]["name"]);
+            $id = generateRandomId();
+            mkdir(__DIR__.DIRECTORY_SEPARATOR.$path.DIRECTORY_SEPARATOR.$id);
+            if(move_uploaded_file($tempname, __DIR__.DIRECTORY_SEPARATOR.$path.DIRECTORY_SEPARATOR.$id.DIRECTORY_SEPARATOR.urlencode($fname))){
+                $link = createNewLink(basename($fname), $id);
                 ?>
-                <a class="card-link" href="<?= $link ?>"><?= $link ?></a>
+                <a class="alert-warning" target="_blank" href="<?= $link ?>"><?= $link ?></a>
                 <?php
             }else{
                 ?>
