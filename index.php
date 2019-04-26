@@ -21,7 +21,7 @@ $file = getFileById($id);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta name="description" content="File: <?= $file->filename ?>">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/styles.min.css">
     <title><?= $title ?> » <?= $file->name ?></title>
 </head>
@@ -30,7 +30,7 @@ $file = getFileById($id);
     <div class="container">
         <div class="intro">
             <h4 class="text-monospace text-center"><?= $file->filename ?></h4>
-            <p class="text-monospace text-center border rounded shadow">File Informations: <br>File uploaded at: <?= date("d.m.Y H:i", filemtime($file->correctpath)) ?><br>File Size: <?= round($file->size / 1024, 3) ?> KB</p>
+            <p class="text-monospace text-center border rounded shadow">File Informations: <br>File uploaded at: <?= date("d.m.Y H:i", filemtime($file->correctpath)) ?><br>File Size: <?= number_format(round($file->size / 1024, 3), 3, ".", ".") ?> KB</p>
         </div>
         <div class="buttons">
             <a class="btn btn-light text-white bg-dark" role="button" href="<?= $file->correctpath ?>" download>Download</a>
@@ -47,6 +47,5 @@ $file = getFileById($id);
         ?>
     </div>
 </div>
-<script src="assets/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

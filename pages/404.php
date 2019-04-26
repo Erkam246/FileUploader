@@ -6,7 +6,7 @@ include_once "config.php";
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta name="description" content="<?= $title ?> - File not Found!">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/styles.min.css">
     <title><?= $title ?> » 404</title>
 </head>
@@ -19,6 +19,5 @@ include_once "config.php";
         </div>
     </div>
 </div>
-<script src="assets/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
