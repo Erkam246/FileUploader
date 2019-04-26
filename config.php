@@ -1,14 +1,15 @@
 <?php
 
-session_start();
-
+//TITLE in Browser Tab
 $title = "FileUploader";
 
+//MySQL Configuration
 $host = "localhost";
 $user = "fileupload";
 $pw = "";
 $db = "fileupload";
 
+//PATH WHERE EVERYTHING WILL BE SAVED
 $path = "uploads";
 
 require_once "File.php";
@@ -19,7 +20,7 @@ if(!$mysql->ping()){
     return;
 }
 
-$mysql->query("CREATE TABLE IF NOT EXISTS `$db`.`fileupload` ( `f_id` INT NOT NULL AUTO_INCREMENT , `f_name` VARCHAR(128) NOT NULL , `f_dir` VARCHAR(20) NOT NULL , PRIMARY KEY (`f_id`)) ENGINE = InnoDB;", MYSQLI_USE_RESULT);
+$mysql->query("CREATE TABLE IF NOT EXISTS `$db`.`fileupload` ( `f_id` INT NOT NULL AUTO_INCREMENT , `f_name` VARCHAR(255) NOT NULL , `f_dir` VARCHAR(32) NOT NULL , PRIMARY KEY (`f_id`)) ENGINE = InnoDB;", MYSQLI_USE_RESULT);
 
 function fileIdExist(string $id): bool{
     global $mysql;
@@ -39,7 +40,7 @@ function createNewLink(string $file, string $dir): string{
 
 function generateRandomId(): string{
     generate:
-    $abc = "abcdefghijklmnopqrstuvwxyz1234567890";
+    $abc = "abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMOPQRSTUVWXYZ";
     $string = "";
     for($i = 0; $i < 16; $i++){
         $string .= $abc[mt_rand(0, strlen($abc) - 1)];

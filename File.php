@@ -18,19 +18,20 @@ class File {
 
     public function check(): void{
         global $path;
-        $this->correctpath = $path.DIRECTORY_SEPARATOR.$this->id.DIRECTORY_SEPARATOR.$this->filename;
-        $explode = explode(".", $this->filename);
-        if(empty($explode))
-            $this->name = $this->filename;
-        else
-            $this->name = $explode[0];
+        $this->correctpath = $path.DIRECTORY_SEPARATOR.$this->id.DIRECTORY_SEPARATOR.urlencode($this->filename);
         $this->size = filesize($this->correctpath);
         $info = pathinfo($this->correctpath);
         $imgtype = ["png", "jpg", "jpeg"];
-        $ext = $info["extension"];
-        if(in_array($ext, $imgtype)){
-            $this->extension = $ext;
-            $this->isImage = true;
+        if(isset($info["extension"])){
+            $ext = $info["extension"];
+            $explode = explode(".".$ext, $this->filename);
+            $this->name = $explode[0];
+            if(in_array($ext, $imgtype)){
+                $this->extension = $ext;
+                $this->isImage = true;
+            }
+        }else{
+            $this->name = $this->filename;
         }
     }
 }

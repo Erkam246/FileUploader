@@ -5,10 +5,8 @@ include_once "config.php";
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <link rel="stylesheet" href="assets/upload/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/upload/css/Login-Form-Clean.css">
-    <link rel="stylesheet" href="assets/upload/css/styles.css">
-    <script src="assets/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/Form-Clean.css">
     <title><?= $title ?> » Upload</title>
 </head>
 <body>
@@ -19,13 +17,15 @@ include_once "config.php";
             <span class="alert-info">Max. Upload Limit: <?= ini_get("upload_max_filesize"); ?></span>
         </div>
         <div class="form-group">
-            <button class="btn btn-primary btn-block btn-sm text-monospace" type="submit" name="uploaded">Upload
+            <button class="btn btn-danger btn-block btn-sm text-monospace" type="submit" name="uploaded">Upload
             </button>
         </div>
         <?php
         if(isset($_POST["uploaded"])){
             $tempname = $_FILES["file"]["tmp_name"];
             $fname = basename($_FILES["file"]["name"]);
+            if(strlen($fname) >= 255)
+                return;
             $id = generateRandomId();
             mkdir(__DIR__.DIRECTORY_SEPARATOR.$path.DIRECTORY_SEPARATOR.$id);
             if(move_uploaded_file($tempname, __DIR__.DIRECTORY_SEPARATOR.$path.DIRECTORY_SEPARATOR.$id.DIRECTORY_SEPARATOR.urlencode($fname))){

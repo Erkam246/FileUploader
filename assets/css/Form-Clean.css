@@ -33,7 +33,7 @@
   height: 42px;
 }
 
-.login-clean form .btn-primary {
+.login-clean form .btn-danger {
   background: #f4476b;
   border: none;
   border-radius: 4px;
@@ -44,11 +44,11 @@
   outline: none !important;
 }
 
-.login-clean form .btn-primary:hover, .login-clean form .btn-primary:active {
+.login-clean form .btn-danger:hover, .login-clean form .btn-danger:active {
   background: #eb3b60;
 }
 
-.login-clean form .btn-primary:active {
+.login-clean form .btn-danger:active {
   transform: translateY(1px);
 }
 

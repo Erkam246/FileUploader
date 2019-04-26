@@ -20,16 +20,17 @@ $file = getFileById($id);
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="description" content="File: <?= $file->name ?>">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/styles.min.css">
     <title><?= $title ?> » <?= $file->name ?></title>
 </head>
-<body ondragstart="event.preventDefault();">
+<body ondragstart="return false;" oncontextmenu="return false;" class="noselection">
 <div class="highlight-clean">
     <div class="container">
         <div class="intro">
-            <h2 class="display-4 text-monospace text-center"><?= $file->filename ?></h2>
-            <p class="text-monospace text-center border rounded shadow">File Informations: <br>File uploaded at: <?= date("d.m.Y H:i", filemtime($file->correctpath)) ?><br><?= round($file->size / 1024, 3) ?> KB</p>
+            <h4 class="text-monospace text-center"><?= $file->filename ?></h4>
+            <p class="text-monospace text-center border rounded shadow">File Informations: <br>File uploaded at: <?= date("d.m.Y H:i", filemtime($file->correctpath)) ?><br>File Size: <?= round($file->size / 1024, 3) ?> KB</p>
         </div>
         <div class="buttons">
             <a class="btn btn-light text-white bg-dark" role="button" href="<?= $file->correctpath ?>" download>Download</a>
@@ -38,7 +39,7 @@ $file = getFileById($id);
         if($file->isImage){
             ?>
             <div class="text-center">
-                <p>Preview:</p>
+                <p>Image Preview:</p>
                 <img src="<?= $file->correctpath ?>" alt="" class="img-thumbnail w-25">
             </div>
             <?php
@@ -46,7 +47,6 @@ $file = getFileById($id);
         ?>
     </div>
 </div>
-<script src="assets/js/jquery.min.js"></script>
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
