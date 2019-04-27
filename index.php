@@ -39,24 +39,26 @@ $file = getFileById($id);
             <a class="btn btn-light text-white bg-dark" role="button" href="<?= $file->correctpath ?>" download>Download</a>
         </div>
         <?php
-        if($file->isImage){
-            ?>
-            <div class="text-center">
-                <p>Image Preview:</p>
-                <img src="<?= $file->correctpath ?>" alt="" class="img-thumbnail w-auto">
-            </div>
-            <?php
-        }elseif($file->isCode){
-            ?>
-            <div>
+        if($preview){
+            if($file->isImage){
+                ?>
                 <div class="text-center">
-                    <p>Code Preview:</p>
+                    <p>Image Preview:</p>
+                    <img src="<?= $file->correctpath ?>" alt="" class="img-thumbnail w-auto">
                 </div>
-                <div class="card card-body">
-                    <p><?= highlight_file($file->correctpath, true) ?></p>
+                <?php
+            }elseif($file->isCode){
+                ?>
+                <div>
+                    <div class="text-center">
+                        <p>Code Preview:</p>
+                    </div>
+                    <div class="card card-body">
+                        <p><?= highlight_file($file->correctpath, true) ?></p>
+                    </div>
                 </div>
-            </div>
-            <?php
+                <?php
+            }
         }
         ?>
     </div>

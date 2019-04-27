@@ -4,17 +4,23 @@
 $title = "FileUploader";
 
 //MySQL Configuration
-$host = "localhost";
-$user = "fileupload";
-$pw = "";
-$db = "fileupload";
+$mysql = [
+    "Host" => "localhost",
+    "User" => "fileupload",
+    "Password" => "yourpassword",
+    "DataBase" => "fileupload",
+    "Port" => 3306,
+];
 
 //PATH WHERE EVERYTHING WILL BE SAVED
 $path = "uploads";
 
+//Image / Code preview
+$preview = false;
+
 require_once "File.php";
 
-$mysql = mysqli_connect($host, $user, $pw, $db);
+$mysql = mysqli_connect($mysql["Host"], $mysql["User"], $mysql["Password"], $mysql["DataBase"], $mysql["Port"]);
 if(!$mysql->ping()){
     echo "An MySQL error occurred. Please recheck your configuration!";
     return;
