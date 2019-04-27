@@ -30,19 +30,35 @@ $file = getFileById($id);
     <div class="container">
         <div class="intro">
             <h4 class="text-monospace text-center"><?= $file->filename ?></h4>
-            <p class="text-monospace text-center border rounded shadow">File Informations: <br>File uploaded at: <?= date("d.m.Y H:i", filemtime($file->correctpath)) ?><br>File Size: <?= number_format(round($file->size / 1024, 3), 3, ".", ".") ?> KB</p>
+            <p class="text-monospace text-center border rounded shadow">File Informations:<br>
+                File uploaded at: <?= date("d.m.Y H:i", filemtime($file->correctpath)) ?><br>
+                File Size: <?= number_format(round($file->size / 1024, 3), 3, ".", ".") ?> KB
+            </p>
         </div>
         <div class="buttons">
             <a class="btn btn-light text-white bg-dark" role="button" href="<?= $file->correctpath ?>" download>Download</a>
         </div>
         <?php
-        if($file->isImage){
-            ?>
-            <div class="text-center">
-                <p>Image Preview:</p>
-                <img src="<?= $file->correctpath ?>" alt="" class="img-thumbnail w-25">
-            </div>
-            <?php
+        if($preview){
+            if($file->isImage){
+                ?>
+                <div class="text-center">
+                    <p>Image Preview:</p>
+                    <img src="<?= $file->correctpath ?>" alt="" class="img-thumbnail w-auto">
+                </div>
+                <?php
+            }elseif($file->isCode){
+                ?>
+                <div>
+                    <div class="text-center">
+                        <p>Code Preview:</p>
+                    </div>
+                    <div class="card card-body">
+                        <p><?= highlight_file($file->correctpath, true) ?></p>
+                    </div>
+                </div>
+                <?php
+            }
         }
         ?>
     </div>

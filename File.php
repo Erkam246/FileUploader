@@ -3,7 +3,7 @@
 require_once "config.php";
 
 class File {
-    public $isImage = false;
+    public $isImage = false, $isCode = false;
     public $id = "", $insertid = 0, $filename = "", $name = "", $extension = "", $correctpath = "", $size = 0;
 
     public function __construct(string $id){
@@ -22,14 +22,17 @@ class File {
         $this->size = filesize($this->correctpath);
         $info = pathinfo($this->correctpath);
         $imgtype = ["png", "jpg", "jpeg"];
+        $codetype = ["php"];
         if(isset($info["extension"])){
             $ext = $info["extension"];
             $explode = explode(".".$ext, $this->filename);
             $this->name = $explode[0];
             if(in_array($ext, $imgtype)){
-                $this->extension = $ext;
                 $this->isImage = true;
+            }elseif(in_array($ext, $codetype)){
+                $this->isCode = true;
             }
+            $this->extension = $ext;
         }else{
             $this->name = $this->filename;
         }
