@@ -5,7 +5,7 @@ include_once "config.php";
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/Form-Clean.css">
     <title><?= $title ?> » Upload</title>
 </head>
@@ -13,7 +13,10 @@ include_once "config.php";
 <div class="login-clean" style="background-color: #ffffff;">
     <form class="bg-white border rounded shadow-lg" method="post" enctype="multipart/form-data" action="">
         <div class="form-group">
-            <input type="file" required name="file">
+            <div class="custom-file" id="customFile">
+                <input type="file" class="custom-file-input" id="fileinput" aria-describedby="fileHelp" name="file">
+                <label class="custom-file-label" for="fileinput">Select file...</label>
+            </div>
             <span class="alert-info">Max. Upload Limit: <?= ini_get("upload_max_filesize"); ?></span>
         </div>
         <div class="form-group">

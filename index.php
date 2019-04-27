@@ -58,6 +58,13 @@ $file = getFileById($id);
                     </div>
                 </div>
                 <?php
+            }elseif($file->isAudio){
+                ?>
+                <div class="text-center">
+                    <p>Audio Preview:</p>
+                    <audio src="<?= $file->correctpath ?>" controls></audio>
+                </div>
+                <?php
             }
         }
         ?>

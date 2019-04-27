@@ -4,7 +4,7 @@
 $title = "FileUploader";
 
 //MySQL Configuration
-$mysql = [
+$myconf = [
     "Host" => "localhost",
     "User" => "fileupload",
     "Password" => "yourpassword",
@@ -15,18 +15,18 @@ $mysql = [
 //PATH WHERE EVERYTHING WILL BE SAVED
 $path = "uploads";
 
-//Image / Code preview
-$preview = false;
+//Image / Code / Audio preview
+$preview = true;
 
 require_once "File.php";
 
-$mysql = mysqli_connect($mysql["Host"], $mysql["User"], $mysql["Password"], $mysql["DataBase"], $mysql["Port"]);
+$mysql = mysqli_connect($myconf["Host"], $myconf["User"], $myconf["Password"], $myconf["DataBase"], $myconf["Port"]);
 if(!$mysql->ping()){
     echo "An MySQL error occurred. Please recheck your configuration!";
     return;
 }
 
-$mysql->query("CREATE TABLE IF NOT EXISTS `$db`.`fileupload` ( `f_id` INT NOT NULL AUTO_INCREMENT , `f_name` VARCHAR(255) NOT NULL , `f_dir` VARCHAR(32) NOT NULL , PRIMARY KEY (`f_id`)) ENGINE = InnoDB;", MYSQLI_USE_RESULT);
+$mysql->query("CREATE TABLE IF NOT EXISTS ".$myconf["DataBase"].".fileupload ( `f_id` INT NOT NULL AUTO_INCREMENT, `f_name` VARCHAR(255) NOT NULL, `f_dir` VARCHAR(32) NOT NULL, PRIMARY KEY (`f_id`)) ENGINE = InnoDB;", MYSQLI_USE_RESULT);
 
 function fileIdExist(string $id): bool{
     global $mysql;
