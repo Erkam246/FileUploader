@@ -2,7 +2,7 @@
 Upload file and create a link to download.
 Image Preview included
 
-####How to use ?
+#### How to use ?
 
 - PHP 7.2 Recommended
 
@@ -12,4 +12,4 @@ Image Preview included
 
 - create folder same named as $path in config.php and...
 
-#####Enjoy :D
+##### Enjoy :D
