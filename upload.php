@@ -11,17 +11,16 @@ include_once "config.php";
 </head>
 <body>
 <div class="login-clean" style="background-color: #ffffff;">
-    <form class="bg-white border rounded shadow-lg" method="post" enctype="multipart/form-data" action="">
+    <form class="bg-white border rounded shadow-lg" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <div class="custom-file" id="customFile">
-                <input type="file" class="custom-file-input" id="fileinput" aria-describedby="fileHelp" name="file">
-                <label class="custom-file-label" for="fileinput">Select file...</label>
+                <input type="file" class="custom-file-input" id="fileInput" aria-describedby="fileUploader" name="file">
+                <label class="custom-file-label" for="fileInput">Select file...</label>
             </div>
-            <span class="alert-info">Max. Upload Limit: <?= ini_get("upload_max_filesize"); ?></span>
+            <p class="alert-info mt-4">Max. Upload Limit: <?= ini_get("upload_max_filesize"); ?></p>
         </div>
         <div class="form-group">
-            <button class="btn btn-danger btn-block btn-sm text-monospace" type="submit" name="uploaded">Upload
-            </button>
+            <button class="btn btn-danger btn-block btn-sm text-monospace" type="submit" name="uploaded">Upload</button>
         </div>
         <?php
         if(isset($_POST["uploaded"])){
@@ -45,5 +44,12 @@ include_once "config.php";
         ?>
     </form>
 </div>
+<script src="assets/js/jquery-3.4.1.js"></script>
+<script>
+    $(".custom-file-input").on("change", function(){
+        let fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>
 </body>
 </html>
