@@ -1,19 +1,23 @@
 <?php
+
 include_once "config.php";
 
 if(!isset($_GET["id"])){
     include_once "pages/404.php";
     return;
 }
+
 $id = $_GET["id"];
 if(strlen($id) !== 16){
     include_once "pages/404.php";
     return;
 }
+
 if(!fileIdExist($id)){
     include_once "pages/404.php";
     return;
 }
+
 $file = getFileById($id);
 ?>
 <html lang="deu">

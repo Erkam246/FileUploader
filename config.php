@@ -30,7 +30,12 @@ $mysql->query("CREATE TABLE IF NOT EXISTS ".$myconf["DataBase"].".fileupload ( `
 
 function fileIdExist(string $id): bool{
     global $mysql;
-    return $mysql->query("SELECT * FROM fileupload WHERE f_dir = '$id'")->num_rows === 1;
+    $stmt = $mysql->prepare("SELECT * FROM fileupload WHERE f_dir = ?");
+    $stmt->bind_param("s", $id);
+    $stmt->execute();
+    $rows = $stmt->get_result()->num_rows;
+    $stmt->close();
+    return $rows === 1;
 }
 
 function getFileById(string $id): File{
@@ -39,8 +44,10 @@ function getFileById(string $id): File{
 
 function createNewLink(string $file, string $dir): string{
     global $mysql;
-    $query = "INSERT INTO fileupload (f_name, f_dir) VALUES ('$file', '$dir')";
-    $mysql->query($query);
+    $insert = $mysql->prepare("INSERT INTO fileupload (f_name, f_dir) VALUES (?, ?)");
+    $insert->bind_param("ss", $file, $dir);
+    $insert->execute();
+    $insert->close();
     return "index.php?id=".$dir;
 }
 
